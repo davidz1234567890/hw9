@@ -65,5 +65,7 @@ STORE   SW R6, R2, ARRAY ; R2 either contains data_reg contents or $FF
         SLTI R0, R6, $0010 ; checks if offset < 16, 
                            ; which is the same as checking index < 8
         BRN INIT
-        BRA END
+        LI R6, $0 ; resets offset to 0 after reading at 8 indices
+        BRA INIT  ; run the infinite loop
+        BRA END   ; code should never reach here
 END     STOP

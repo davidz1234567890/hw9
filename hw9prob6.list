@@ -103,6 +103,10 @@ addr data   label     opcode  operands
 10B8 0010                     $0010   
 10BA 9800             BRN             
 10BC 1008                     INIT    
-10BE F800             BRA             
-10C0 10C2                     END     
-10C2 FE00  END        STOP            
+10BE 3180             LI      R6      
+10C0 0000                     $0      
+10C2 F800             BRA             
+10C4 1008                     INIT    
+10C6 F800             BRA             
+10C8 10CA                     END     
+10CA FE00  END        STOP            
