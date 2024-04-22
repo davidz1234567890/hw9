@@ -1,0 +1,106 @@
+addr data   label     opcode  operands
+---- ----  --------   ------  --------
+2000 0000  ARRAY      .DW     $0      
+2002 0000             .DW     $0      
+2004 0000             .DW     $0      
+2006 0000             .DW     $0      
+2008 0000             .DW     $0      
+200A 0000             .DW     $0      
+200C 0000             .DW     $0      
+200E 0000             .DW     $0      
+1000 3180  START      LI      R6      
+1002 0000                     $0      
+1004 31C0             LI      R7      
+1006 0000                     $0      
+1008 30C0  INIT       LI      R3      
+100A 0001                     $0001   
+100C 3803             SW      R0 R3   
+100E 0012                     CONTROL_REG
+1010 3100             LI      R4      
+1012 0002                     $0002   
+1014 A0DC             OR      R3 R3 R4
+1016 3803             SW      R0 R3   
+1018 0012                     CONTROL_REG
+101A 2940  WAIT       LW      R5 R0   
+101C 0014                     STATUS_REG
+101E 5228             SLTI    R0 R5   
+1020 0000                     $0      
+1022 9800             BRN             
+1024 102A                     DONE_RD 
+1026 F800  CONT       BRA             
+1028 101A                     WAIT    
+102A 30C0  DONE_RD    LI      R3      
+102C 000D                     $000D   
+102E 3803             SW      R0 R3   
+1030 0012                     CONTROL_REG
+1032 3040  INIT1      LI      R1      
+1034 0001                     $1      
+1036 2880             LW      R2 R0   
+1038 0020                     DATA_REG
+103A 30C0             LI      R3      
+103C 0000                     $0      
+103E C113  LOOP       SLL     R4 R2 R3
+1040 5220             SLTI    R0 R4   
+1042 0000                     $0      
+1044 9800             BRN             
+1046 1058                     INCR    
+1048 30D8  LOOP1      ADDI    R3 R3   
+104A 0001                     $1      
+104C 5218             SLTI    R0 R3   
+104E 0010                     $0010   
+1050 9800             BRN             
+1052 103E                     LOOP    
+1054 F800             BRA             
+1056 1060                     EVAL    
+1058 3048  INCR       ADDI    R1 R1   
+105A 0001                     $1      
+105C F800             BRA             
+105E 1048                     LOOP1   
+1060 3140  EVAL       LI      R5      
+1062 0001                     $1      
+1064 914D             AND     R5 R1 R5
+1066 30C0             LI      R3      
+1068 0000                     $00     
+106A 3803             SW      R0 R3   
+106C 0014                     STATUS_REG
+106E 5228             SLTI    R0 R5   
+1070 0000                     $0      
+1072 C800             BRZ             
+1074 1082                     EVEN    
+1076 30C0  ODD        LI      R3      
+1078 0005                     $0005   
+107A 3803             SW      R0 R3   
+107C 0012                     CONTROL_REG
+107E F800             BRA             
+1080 108E                     AFTER   
+1082 30C0  EVEN       LI      R3      
+1084 0001                     $0001   
+1086 3803             SW      R0 R3   
+1088 0012                     CONTROL_REG
+108A F800             BRA             
+108C 10AA                     STORE   
+108E 31F8  AFTER      ADDI    R7 R7   
+1090 0001                     $1      
+1092 5238             SLTI    R0 R7   
+1094 0003                     $3      
+1096 9800             BRN             
+1098 1008                     INIT    
+109A 30C0             LI      R3      
+109C 0005                     $0005   
+109E 3803             SW      R0 R3   
+10A0 0012                     CONTROL_REG
+10A2 3080             LI      R2      
+10A4 00FF                     $FF     
+10A6 F800             BRA             
+10A8 10AA                     STORE   
+10AA 3832  STORE      SW      R6 R2   
+10AC 2000                     ARRAY   
+10AE 31B0             ADDI    R6 R6   
+10B0 0002                     $2      
+10B2 5230             SLTI    R0 R6   
+10B4 0010                     $0010   
+10B6 9800             BRN             
+10B8 1008                     INIT    
+10BA F800             BRA             
+10BC 10BE                     END     
+10BE FE00  END        STOP            
